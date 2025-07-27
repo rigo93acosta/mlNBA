@@ -71,10 +71,21 @@ El sistema **detecta automáticamente** qué modo usar.
 - Victorias, derrotas, promedios
 - Record de temporada
 
-### 📐 Sistema de Coordenadas
+### 📐 Sistema de Coordenadas y Línea de 3 puntos
 - ✅ Conversión API → Distancias reales en pies
 - ✅ Línea de 3 puntos geométricamente correcta
 - ✅ Coordenadas X,Y convertidas a pies reales
+
+#### Dimensiones Oficiales de la NBA:
+- **Radio del arco**: 23.75 pies desde el centro del aro
+- **Distancia en las esquinas**: 22.0 pies desde el centro del aro
+- **Altura de la intersección**: ~8.9 pies (calculada)
+- **Ángulo de intersección**: ~22.3° (calculado)
+
+#### Implementación Geométrica:
+- El arco utiliza un rango de ángulos limitado (desde π-θ hasta θ), donde θ es el ángulo de intersección
+- Las líneas de esquina se dibujan desde la línea de fondo (y=0) hasta el punto de intersección con el arco
+- Las coordenadas de intersección se calculan matemáticamente usando trigonometría
 
 ## 🔧 Configuración
 
@@ -128,6 +139,7 @@ shot_heatmap(201939, ultima_temporada, "Stephen Curry")
 - **Auto-Detection**: Detección automática de GUI/no-GUI
 - **Coordinate Conversion**: Conversión precisa de coordenadas
 - **Data Validation**: Validación de datos de entrada
+- **Geometría NBA Oficial**: Implementación precisa de la línea de 3 puntos siguiendo dimensiones oficiales
 
 ## 🔍 Troubleshooting
 

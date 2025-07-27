@@ -128,7 +128,8 @@ def explicar_coordenadas_nba():
     print("• SHOT_DISTANCE: Distancia real desde el aro")
     print()
     print("🏀 REFERENCIAS DE LA CANCHA (en pies reales):")
-    print("• Línea de 3 puntos: ~23.75 pies desde el aro")
+    print("• Línea de 3 puntos (arco): 23.75 pies desde el aro")
+    print("• Línea de 3 puntos (esquinas): 22.0 pies desde el aro")
     print("• Esquinas: ±22 pies del centro")
     print("• Ancho total: 50 pies")
     print("• Largo total: 94 pies")
@@ -350,20 +351,24 @@ def shot_chart_map(player_id, season, player_name):
               c='green', alpha=0.8, s=40, label=f'Anotados ({len(made_shots)})', 
               marker='o')
     
-    # Dibujar línea de 3 puntos (CORREGIDA)
-    centro_aro_y = 1.0   # pies desde la línea de fondo (basado en datos reales)
-    radio_3pt = 23.75    # pies desde el centro del aro
+    # Dibujo NBA: línea de 3 puntos reglamentaria con esquinas
+    radio_3pt = 23.75  # Radio oficial NBA: 23.75 pies desde el centro del aro
+    corner_x = 22.0    # Posición de las esquinas en el eje X: 22 pies
+    aro_y = 0.0        # Centro del aro en la línea de fondo
     
-    # Línea de 3 puntos superior (arco)
-    theta = np.linspace(-np.pi/2 + 0.22, np.pi/2 - 0.22, 100)
+    # Calcular el punto de intersección donde el arco se une con las líneas de esquina
+    y_interseccion = np.sqrt(radio_3pt**2 - corner_x**2)
+    angulo_interseccion = np.arccos(corner_x/radio_3pt)  # en radianes
+    
+    # Dibujar el arco principal (desde la intersección izquierda hasta la derecha)
+    theta = np.linspace(np.pi - angulo_interseccion, angulo_interseccion, 200)
     x_arc = radio_3pt * np.cos(theta)
-    y_arc = radio_3pt * np.sin(theta) + centro_aro_y
-    ax.plot(x_arc, y_arc, 'black', linewidth=2, alpha=0.7, label='Línea de 3 puntos')
+    y_arc = radio_3pt * np.sin(theta) + aro_y
+    ax.plot(x_arc, y_arc, 'black', linewidth=2.5, alpha=0.9, label='Línea de 3 puntos')
     
-    # Líneas de esquina
-    corner_y_height = centro_aro_y
-    ax.plot([-22, -22], [0, corner_y_height], 'black', linewidth=2, alpha=0.7)
-    ax.plot([22, 22], [0, corner_y_height], 'black', linewidth=2, alpha=0.7)
+    # Dibujar las líneas rectas de las esquinas
+    ax.plot([-corner_x, -corner_x], [0, y_interseccion], 'black', linewidth=2.5, alpha=0.9)
+    ax.plot([corner_x, corner_x], [0, y_interseccion], 'black', linewidth=2.5, alpha=0.9)
     
     # Configurar gráfico
     ax.set_xlabel('Posición X (pies reales desde el centro)', fontsize=12)
@@ -443,18 +448,24 @@ def shot_heatmap(player_id, season, player_name):
                    extent=[x_bins[0], x_bins[-1], y_bins[0], y_bins[-1]],
                    cmap='hot', alpha=0.8)
     
-    # Dibujar línea de 3 puntos
-    centro_aro_y = 1.0
-    radio_3pt = 23.75
+    # Dibujo NBA: línea de 3 puntos reglamentaria con esquinas
+    radio_3pt = 23.75  # Radio oficial NBA: 23.75 pies desde el centro del aro
+    corner_x = 22.0    # Posición de las esquinas en el eje X: 22 pies
+    aro_y = 0.0        # Centro del aro en la línea de fondo
     
-    theta = np.linspace(-np.pi/2 + 0.22, np.pi/2 - 0.22, 100)
+    # Calcular el punto de intersección donde el arco se une con las líneas de esquina
+    y_interseccion = np.sqrt(radio_3pt**2 - corner_x**2)
+    angulo_interseccion = np.arccos(corner_x/radio_3pt)  # en radianes
+    
+    # Dibujar el arco principal (desde la intersección izquierda hasta la derecha)
+    theta = np.linspace(np.pi - angulo_interseccion, angulo_interseccion, 200)
     x_arc = radio_3pt * np.cos(theta)
-    y_arc = radio_3pt * np.sin(theta) + centro_aro_y
-    ax.plot(x_arc, y_arc, 'white', linewidth=3, alpha=0.9, label='Línea de 3 puntos')
+    y_arc = radio_3pt * np.sin(theta) + aro_y
+    ax.plot(x_arc, y_arc, 'white', linewidth=3.5, alpha=1, label='Línea de 3 puntos')
     
-    corner_y_height = centro_aro_y
-    ax.plot([-22, -22], [0, corner_y_height], 'white', linewidth=3, alpha=0.9)
-    ax.plot([22, 22], [0, corner_y_height], 'white', linewidth=3, alpha=0.9)
+    # Dibujar las líneas rectas de las esquinas
+    ax.plot([-corner_x, -corner_x], [0, y_interseccion], 'white', linewidth=3.5, alpha=1)
+    ax.plot([corner_x, corner_x], [0, y_interseccion], 'white', linewidth=3.5, alpha=1)
     
     # Colorbar
     cbar = plt.colorbar(im, ax=ax)
