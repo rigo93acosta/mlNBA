@@ -29,7 +29,7 @@ warnings.filterwarnings('ignore')
 class NBAMLTrainer:
     """Entrenador ML v2.0 optimizado."""
     
-    def __init__(self, data_path='../data/ml_nba_dataset_COMPLETO.csv'):
+    def __init__(self, data_path='data/ml_nba_dataset_COMPLETO.csv'):
         """Inicializa el entrenador."""
         self.data_path = data_path
         self.df = None
@@ -101,7 +101,7 @@ class NBAMLTrainer:
             print(f"📊 Train: {self.X_train.shape}, Test: {self.X_test.shape}")
             
             # Guardar features
-            joblib.dump(self.optimized_features, '../models/nba_features_v2.joblib')
+            joblib.dump(self.optimized_features, 'models/nba_features_v2.joblib')
             print("✅ Features guardados: nba_features_v2.joblib")
             
             return True
@@ -154,7 +154,7 @@ class NBAMLTrainer:
         X_test_scaled = self.scaler.transform(self.X_test)
         
         # Guardar escalador
-        joblib.dump(self.scaler, '../models/nba_scaler_v2.joblib')
+        joblib.dump(self.scaler, 'models/nba_scaler_v2.joblib')
         
         # 1. Random Forest v2 (optimizado)
         print("🌲 Entrenando Random Forest v2...")
@@ -291,7 +291,7 @@ class NBAMLTrainer:
         for name, model in self.models.items():
             # Crear nombre de archivo limpio
             filename = name.lower().replace(' ', '_').replace('v2', 'v2')
-            filepath = f"../models/nba_model_{filename}.joblib"
+            filepath = f"models/nba_model_{filename}.joblib"
             
             try:
                 joblib.dump(model, filepath)
@@ -432,7 +432,7 @@ class NBAMLTrainer:
                 bbox=dict(boxstyle="round,pad=0.5", facecolor="lightblue", alpha=0.8))
         
         plt.tight_layout()
-        plt.savefig('../reports/nba_ml_v2_results.png', dpi=300, bbox_inches='tight')
+        plt.savefig('reports/nba_ml_v2_results.png', dpi=300, bbox_inches='tight')
         print("✅ Visualización guardada: nba_ml_v2_results.png")
         
         plt.show()

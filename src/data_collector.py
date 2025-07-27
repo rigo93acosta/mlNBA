@@ -67,7 +67,7 @@ class NBADataCollector:
         }
         return teams
     
-    def download_shots_data(self, output_file='../data/all_shots_3pt_2024_25_COMPLETO.csv'):
+    def download_shots_data(self, output_file='data/all_shots_3pt_2024_25_COMPLETO.csv'):
         """Descarga datos de shots 3PT."""
         print("📊 Descargando datos de shots 3PT...")
         
@@ -110,7 +110,7 @@ class NBADataCollector:
             print("❌ No se pudieron descargar datos")
             return None
     
-    def download_team_results(self, output_file='../data/team_game_results_2024_25_COMPLETO.csv'):
+    def download_team_results(self, output_file='data/team_game_results_2024_25_COMPLETO.csv'):
         """Descarga resultados de equipos."""
         print("🏆 Descargando resultados de equipos...")
         
@@ -149,10 +149,10 @@ class NBADataCollector:
             print("❌ No se pudieron descargar resultados")
             return None
     
-    def create_ml_dataset(self, 
-                         shots_file='../data/all_shots_3pt_2024_25_COMPLETO.csv',
-                         results_file='../data/team_game_results_2024_25_COMPLETO.csv',
-                         output_file='../data/ml_nba_dataset_COMPLETO.csv'):
+    def combine_datasets(self,
+                         shots_file='data/all_shots_3pt_2024_25_COMPLETO.csv',
+                         results_file='data/team_game_results_2024_25_COMPLETO.csv',
+                         output_file='data/ml_nba_dataset_COMPLETO.csv'):
         """Crea dataset ML unificado."""
         print("🔬 Creando dataset ML...")
         

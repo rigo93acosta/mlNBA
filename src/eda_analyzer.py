@@ -23,7 +23,7 @@ warnings.filterwarnings('ignore')
 class NBAEDAAnalyzer:
     """Analizador EDA v2.0 con detección de multicolinealidad."""
     
-    def __init__(self, data_path='../data/ml_nba_dataset_COMPLETO.csv'):
+    def __init__(self, data_path='data/ml_nba_dataset_COMPLETO.csv'):
         """Inicializa el analizador."""
         self.data_path = data_path
         self.df = None
@@ -166,7 +166,7 @@ class NBAEDAAnalyzer:
             print(f"🎯 Features finales seleccionados: {len(final_features)}")
             
             # Guardar lista optimizada
-            with open('../reports/optimized_features_v2.txt', 'w') as f:
+            with open('reports/optimized_features_v2.txt', 'w') as f:
                 f.write("# NBA ML FEATURES v2.0 - OPTIMIZADOS\n")
                 f.write("# Eliminada multicolinealidad y agregadas variables de interacción\n\n")
                 f.write("TOP_FEATURES = [\n")
@@ -301,7 +301,7 @@ class NBAEDAAnalyzer:
                 bbox=dict(boxstyle="round,pad=0.5", facecolor="lightblue", alpha=0.8))
         
         plt.tight_layout()
-        plt.savefig('../reports/nba_eda_v2_advanced.png', dpi=300, bbox_inches='tight')
+        plt.savefig('reports/nba_eda_v2_advanced.png', dpi=300, bbox_inches='tight')
         print("✅ Visualización guardada: nba_eda_v2_advanced.png")
         
         plt.show()
@@ -387,7 +387,7 @@ class NBAEDAAnalyzer:
 """
         
         # Guardar reporte
-        with open('../reports/nba_eda_v2_report.md', 'w') as f:
+        with open('reports/nba_eda_v2_report.md', 'w') as f:
             f.write(report_content)
         
         print("✅ Reporte guardado: nba_eda_v2_report.md")

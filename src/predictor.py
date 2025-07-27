@@ -39,20 +39,20 @@ class NBAGamePredictor:
         """Carga modelos optimizados."""
         try:
             # Cargar escalador
-            self.scaler = joblib.load('../models/nba_scaler_v2.joblib')
+            self.scaler = joblib.load('models/nba_scaler_v2.joblib')
             print("✅ Escalador v2.0 cargado")
             
             # Cargar features
-            self.feature_columns = joblib.load('../models/nba_features_v2.joblib')
+            self.feature_columns = joblib.load('models/nba_features_v2.joblib')
             print(f"✅ Features cargados: {len(self.feature_columns)}")
             
             # Cargar modelos
             model_files = {
-                'Random Forest v2': '../models/nba_model_random_forest_v2.joblib',
-                'XGBoost v2': '../models/nba_model_xgboost_v2.joblib',
-                'Logistic Regression v2': '../models/nba_model_logistic_regression_v2.joblib',
-                'Neural Network v2': '../models/nba_model_neural_network_v2.joblib',
-                'Ensemble v2': '../models/nba_model_ensemble_v2.joblib'
+                'Random Forest v2': 'models/nba_model_random_forest_v2.joblib',
+                'XGBoost v2': 'models/nba_model_xgboost_v2.joblib',
+                'Logistic Regression v2': 'models/nba_model_logistic_regression_v2.joblib',
+                'Neural Network v2': 'models/nba_model_neural_network_v2.joblib',
+                'Ensemble v2': 'models/nba_model_ensemble_v2.joblib'
             }
             
             for name, filepath in model_files.items():
@@ -75,7 +75,7 @@ class NBAGamePredictor:
     def _load_team_data(self):
         """Carga datos históricos de equipos."""
         try:
-            df = pd.read_csv('../data/ml_nba_dataset_COMPLETO.csv')
+            df = pd.read_csv('data/ml_nba_dataset_COMPLETO.csv')
             
             # Crear variables de interacción
             self._create_interaction_variables(df)
