@@ -1,0 +1,8 @@
+NBA ML Dataset - Resumen Estadístico
+==================================================
+Registros totales: 2,460
+Features totales: 85
+Equipos: 30
+Tasa de victorias: 0.500
+Promedio 3PM: 13.6
+Promedio 3PA: 37.9
